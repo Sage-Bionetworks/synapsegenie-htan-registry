@@ -34,9 +34,9 @@ class OmeTif(FileTypeFormat):
         Returns:
             df: Pandas dataframe of file
         '''
-        # This file isn't a dataframe, so just pass in the file
-        filePath = filePathList[0]
-        return filePath
+        # This file isn't a dataframe, so just return the filepath
+        filepath = filePathList[0]
+        return filepath
 
     def process_steps(self, df, newPath, databaseSynId):
         df = self._process(df)
@@ -48,4 +48,5 @@ class OmeTif(FileTypeFormat):
     def _validate(self, df):
         total_error = ""
         warning = ""
+        # TODO: Add validation function here.
         return total_error, warning
