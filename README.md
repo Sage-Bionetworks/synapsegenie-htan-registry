@@ -1,41 +1,43 @@
-# Synapse Genie
+# synapsegenie: HTAN registry
 
 ## Introduction
 
-This package can deploy a AACR GENIE like project on Synapse and perform validation and processing of files.
+This is the HTAN file format synapsegenie registry
 
 ## Installation
 
 Dependencies:
-- Python 3.6 or higher
+- Python 3.7 or higher
 - [synapseclient](http://python-docs.synapse.org) (`pip install synapseclient`)
 - Python [pandas](http://pandas.pydata.org) (`pip install pandas`)
 
 ```
 pip install synapsegenie
 synapsegenie -v
+# Install this registry
+pip install -e .
 ```
 
 ## Usage
 
 ### Creating your own registry
-Please view the [example registry](example_registry) to learn how to utilize `synapsegenie`.  `synapsegenie` allows a user to create a registry package with a list of file formats.  Each of these file format classes should extend `synapsegenie.example_filetype_format.FileTypeFormat`.  Learn more about creating Python packages [here](https://packaging.python.org/tutorials/packaging-projects/).  Once you have installed your registry package, you can now use the `synapsegenie` command line client.
+`synapsegenie` allows a user to create a registry package with a list of file formats.  Each of these file format classes should extend `synapsegenie.example_filetype_format.FileTypeFormat`.  Learn more about creating Python packages [here](https://packaging.python.org/tutorials/packaging-projects/).  Once you have installed your registry package, you can now use the `synapsegenie` command line client.
 
 ### synapsegenie Synapse project
 A `synapsegenie` Synapse project must exist for you to fully utilize this package.  There is now a command to create this infrastructure in Synapse.  If you already have an existing Synapse Project you would like to use, please use the `--project_id` parameter, otherwise please use the `--project_name` parameter to create a new Synapse project.
 
 ```
-synapsegenie bootstrap-infra --format_registry_packages example_registry \
-                             --project_name "My Project Name"
-                             --centers AAA BBB CCC
+synapsegenie bootstrap-infra --format_registry_packages htan_registry \
+                             --project_name "HTAN synapsegenie prototype"
+                             --centers OMETIF
 ```
 
 If you decide to add centers at a later date, you can re-run this command and the center will be added
 
 ```
-synapsegenie bootstrap-infra --format_registry_packages example_registry \
+synapsegenie bootstrap-infra --format_registry_packages htan_registry \
                              --project_id syn12345
-                             --centers AAA BBB CCC DDD
+                             --centers OMETIF other
 ```
 
 ### File Validator
@@ -56,12 +58,12 @@ synapsegenie /path/to/file center_name \
 synapsegenie process -h
 
 # only validate
-synapsegenie process --format_registry_packages example_registry \
+synapsegenie process --format_registry_packages htan_registry \
                      --project_id syn12345
                      --only_validate
 
 # validate + process
-synapsegenie process --format_registry_packages example_registry \
+synapsegenie process --format_registry_packages htan_registry \
                      --project_id syn12345
 ```
 
