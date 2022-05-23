@@ -1,2 +1,2 @@
 synapseclient==2.6.0
-synapsegenie
+synapsegenie==0.0.2
