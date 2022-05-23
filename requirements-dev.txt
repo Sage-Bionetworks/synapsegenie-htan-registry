@@ -1,0 +1,5 @@
+-e .
+synapseclient
+pandas
+pytest
+synapsegenie
