@@ -9,9 +9,9 @@ from synapsegenie import process_functions
 logger = logging.getLogger(__name__)
 
 
-class Csv(FileTypeFormat):
+class OmeTif(FileTypeFormat):
 
-    _filetype = "csv"
+    _filetype = "ometif"
 
     _process_kwargs = ["databaseSynId"]
 
