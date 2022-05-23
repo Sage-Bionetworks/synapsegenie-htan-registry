@@ -16,11 +16,27 @@ class OmeTif(FileTypeFormat):
     _process_kwargs = ["databaseSynId"]
 
     def _validate_filetype(self, filePath):
-        assert os.path.basename(filePath[0]).endswith(".csv")
+        assert os.path.basename(filePath[0]).endswith(".ome.tif")
 
     def _process(self, df):
         df.columns = [df.upper() for col in df.columns]
         return df
+
+    def read_file(self, filePathList):
+        '''
+        Each file is to be read in for validation and processing.
+        This is not to be changed in any functions.
+
+        Args:
+            filePathList:  A list of file paths (Max is 2 for the two
+                           clinical files)
+
+        Returns:
+            df: Pandas dataframe of file
+        '''
+        # This file isn't a dataframe, so just pass in the file
+        filePath = filePathList[0]
+        return filePath
 
     def process_steps(self, df, newPath, databaseSynId):
         df = self._process(df)
@@ -32,6 +48,4 @@ class OmeTif(FileTypeFormat):
     def _validate(self, df):
         total_error = ""
         warning = ""
-        if df.empty:
-            total_error += "{}: File must not be empty".format(self._filetype)
         return total_error, warning
