@@ -10,6 +10,7 @@ Dependencies:
 - Python 3.7 or higher
 - [synapseclient](http://python-docs.synapse.org) (`pip install synapseclient`)
 - Python [pandas](http://pandas.pydata.org) (`pip install pandas`)
+- [bftools](https://docs.openmicroscopy.org/bio-formats/6.9.1/users/comlinetools/): xmlvalid
 
 ```
 pip install synapsegenie
@@ -59,12 +60,12 @@ synapsegenie process -h
 
 # only validate
 synapsegenie process --format_registry_packages htan_registry \
-                     --project_id syn12345
+                     --project_id syn30847334
                      --only_validate
 
 # validate + process
 synapsegenie process --format_registry_packages htan_registry \
-                     --project_id syn12345
+                     --project_id syn30847334
 ```
 
 ## Contributing

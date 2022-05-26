@@ -1,6 +1,7 @@
 """genie package setup"""
 import os
 from setuptools import setup, find_packages
+import shutil
 
 # figure out the version
 about = {}
@@ -11,6 +12,11 @@ here = os.path.abspath(os.path.dirname(__file__))
 # Add readme
 with open("README.md", "r") as fh:
     long_description = fh.read()
+
+# Must install bftools in the root directory of this repo
+command = os.path.join(here, 'bftools/xmlvalid')
+if shutil.which(command) is None:
+    raise ValueError("Must install bftools")
 
 setup(name='htan-registry',
       # version=about["__version__"],

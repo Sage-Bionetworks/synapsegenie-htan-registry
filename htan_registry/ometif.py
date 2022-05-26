@@ -1,12 +1,13 @@
 import logging
 import os
-
-import synapseclient
+import subprocess
 
 from synapsegenie.example_filetype_format import FileTypeFormat
 from synapsegenie import process_functions
 
 logger = logging.getLogger(__name__)
+
+here = os.path.abspath(os.path.dirname(__file__))
 
 
 class OmeTif(FileTypeFormat):
@@ -45,8 +46,14 @@ class OmeTif(FileTypeFormat):
         df.to_csv(newPath, sep="\t", index=False)
         return newPath
 
-    def _validate(self, df):
+    def _validate(self, path_or_df):
         total_error = ""
         warning = ""
+        xmlvalid_cmd = os.path.join(here, '../bftools/xmlvalid')
+        xmlvalid_exc = subprocess.run([xmlvalid_cmd, path_or_df], capture_output=True, text=True)
+        # If error, set the error
+        if xmlvalid_exc.returncode:
+            total_error = xmlvalid_exc.stdout
+
         # TODO: Add validation function here.
         return total_error, warning
