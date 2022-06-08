@@ -30,4 +30,4 @@ setup(name='htan-registry',
       packages=find_packages(),
       zip_safe=False,
       python_requires='>=3.6',
-      install_requires=['pandas>=1.0', 'synapseclient>=2.2.2'])
+      install_requires=['synapsegenie==0.0.2', 'pandas>=1.0', 'synapseclient>=2.2.2'])
