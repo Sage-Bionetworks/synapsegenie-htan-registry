@@ -60,8 +60,14 @@ synapsegenie process -h
 
 # only validate
 synapsegenie process --format_registry_packages htan_registry \
-                     --project_id syn30847334
+                     --project_id syn30847334 \
                      --only_validate
+
+# only validate test
+synapsegenie process --format_registry_packages htan_registry \
+                     --project_id syn30847334 \
+                     --only_validate \
+                     --center TEST
 
 # validate + process
 synapsegenie process --format_registry_packages htan_registry \
