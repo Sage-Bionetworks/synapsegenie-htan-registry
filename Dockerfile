@@ -1,6 +1,6 @@
 FROM python:3.9.13-bullseye
 
-RUN apt-get -y update & apt-get install -y libtiff-tools
+RUN apt-get -y update && apt-get install -y libtiff-tools
 
 WORKDIR /synapsegenie-htan-registry
 
