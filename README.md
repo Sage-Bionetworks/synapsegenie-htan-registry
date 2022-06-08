@@ -30,15 +30,15 @@ A `synapsegenie` Synapse project must exist for you to fully utilize this packag
 ```
 synapsegenie bootstrap-infra --format_registry_packages htan_registry \
                              --project_name "HTAN synapsegenie prototype"
-                             --centers OMETIF
+                             --centers TEST
 ```
 
 If you decide to add centers at a later date, you can re-run this command and the center will be added
 
 ```
 synapsegenie bootstrap-infra --format_registry_packages htan_registry \
-                             --project_id syn12345
-                             --centers OMETIF other
+                             --project_id syn30847334
+                             --centers TEST HTAN_SRRS
 ```
 
 ### File Validator
@@ -49,7 +49,7 @@ synapsegenie validate-single-file -h
 
 synapsegenie /path/to/file center_name \
              --format_registry_packages example_registry \
-             --project_id syn12345 \ # Run bootstrap-infra to create a Synapse project
+             --project_id syn30847334 \ # Run bootstrap-infra to create a Synapse project
 ```
 
 ### Validation/Processing
@@ -60,8 +60,14 @@ synapsegenie process -h
 
 # only validate
 synapsegenie process --format_registry_packages htan_registry \
-                     --project_id syn30847334
+                     --project_id syn30847334 \
                      --only_validate
+
+# only validate test
+synapsegenie process --format_registry_packages htan_registry \
+                     --project_id syn30847334 \
+                     --only_validate \
+                     --center TEST
 
 # validate + process
 synapsegenie process --format_registry_packages htan_registry \
