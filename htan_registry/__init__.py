@@ -1,11 +1,10 @@
 """Initialize example registry"""
 import logging
 
-from . import ometif
 from . import validator
-from . import tiffinfo
+from . import imaging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-__all__ = ["ometif", "validator"]
+__all__ = ["imaging", "validator"]
