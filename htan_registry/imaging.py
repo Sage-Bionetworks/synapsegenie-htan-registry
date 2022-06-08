@@ -18,7 +18,7 @@ class Imaging(FileTypeFormat):
     _process_kwargs = ["databaseSynId"]
 
     def _validate_filetype(self, filePath):
-        assert os.path.basename(filePath[0]).endswith(["tif","tiff",".svs",".ndpi"])
+        assert os.path.basename(filePath[0]).endswith(("tif","tiff",".svs",".ndpi"))
 
     def _process(self, df):
         df.columns = [df.upper() for col in df.columns]
@@ -59,7 +59,7 @@ class Imaging(FileTypeFormat):
             total_error.append(f"showinf failed: {showinf_exc.stdout}")
 
         # Validate the OME-XML with xmlvalid if file type is ome.tiff
-        if os.path.basename(filePath[0]).endswith(["ome.tif",".ome.tiff"]):
+        if os.path.basename(filePath[0]).endswith(("ome.tif",".ome.tiff")):
             xmlvalid_cmd = os.path.join(here, '../bftools/xmlvalid')
             xmlvalid_exc = subprocess.run([xmlvalid_cmd, path_or_df], capture_output=True, text=True)
             # If error, set the set a warning
