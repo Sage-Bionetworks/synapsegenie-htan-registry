@@ -51,32 +51,39 @@ class TiffInfo(FileTypeFormat):
         total_error = []
         warning = []
 
+        # Validate is bioformats compatiable with showinf
+        showinf_cmd = os.path.join(here, '../bftools/showinf')
+        showinf_exc = subprocess.run([showinf_cmd, path_or_df, "-nopix"], capture_output=True, text=True)
+        # If error, set the set a warning
+        if showinf_exc.returncode:
+            total_error.append(f"showinf failed: {showinf_exc.stdout}")
+
         # Validate the OME-XML with xmlvalid
         xmlvalid_cmd = os.path.join(here, '../bftools/xmlvalid')
         xmlvalid_exc = subprocess.run([xmlvalid_cmd, path_or_df], capture_output=True, text=True)
         # If error, set the set a warning
         if xmlvalid_exc.returncode:
-            warning.append("Invalid OME-XML")
+            warning.append("xmlvalid failed: {xmlvalid_exc.stdout}")
 
-        # Get all information on the file from tiffdump
-        tiffdump_exc = subprocess.run(["tiffinfo", path_or_df], capture_output=True, text=True)
+        # Get all information on the file from tiffinfo
+        tiffinfo_exc = subprocess.run(["tiffinfo", path_or_df], capture_output=True, text=True)
         # If error, set the error
-        if tiffdump_exc.returncode:
-            total_error.append("tiffdump failed")
+        if tiffinfo_exc.returncode:
+            total_error.append("tiffinfo failed: {tiffinfo_exc.stdout}")
         # If dates found, make an error
-        finddate = len(re.findall(r'date', tiffdump_exc.stdout, re.IGNORECASE))
+        finddate = len(re.findall(r'date', tiffinfo_exc.stdout, re.IGNORECASE))
         # If likely redacted dates are found make a warning instead
-        redacted_dates = len(re.findall(r'1970:01:01 00:00:00', tiffdump_exc.stdout))
+        redacted_dates = len(re.findall(r'1970:01:01 00:00:00', tiffinfo_exc.stdout))
         if redacted_dates:
             warning.append(f'{finddate} occurences of DATE in TIFF headers that are potentially redacted to "1970:01:01 00:00:00"')
         elif finddate:
             total_error.append(f'{finddate} occurences of DATE in TIFF headers')
         # If times found make a warning
-        findtime = len(re.findall(r'time', tiffdump_exc.stdout, re.IGNORECASE))
+        findtime = len(re.findall(r'time', tiffinfo_exc.stdout, re.IGNORECASE))
         if findtime:
             warning.append(f'{findtime} occurences of TIME in TIFF headers') 
         # If label found make a warning
-        findlabel = len(re.findall(r'label \d+x\d+', tiffdump_exc.stdout, re.IGNORECASE))
+        findlabel = len(re.findall(r'label \d+x\d+', tiffinfo_exc.stdout, re.IGNORECASE))
         if findlabel:
             warning.append(f'{findlabel} possible label images') 
 
