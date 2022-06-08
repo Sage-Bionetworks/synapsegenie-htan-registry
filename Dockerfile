@@ -7,5 +7,5 @@ WORKDIR /synapsegenie-htan-registry
 RUN wget https://downloads.openmicroscopy.org/bio-formats/6.9.1/artifacts/bftools.zip
 RUN unzip bftools.zip
 
-RUN COPY . .
+COPY . .
 RUN pip install .
