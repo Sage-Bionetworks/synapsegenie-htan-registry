@@ -16,7 +16,11 @@ with open("README.md", "r") as fh:
 # Must install bftools in the root directory of this repo
 command = os.path.join(here, 'bftools/xmlvalid')
 if shutil.which(command) is None:
-    raise ValueError("Must install bftools")
+    raise ValueError("Must install bftools in the root directory of this repo")
+
+# Must have libtiff-tools installed
+if shutil.which('tiffinfo') is None:
+    raise ValueError("Must install libtiff-tools to use tiffinfo: sudo apt install libtiff-tools")
 
 setup(name='htan-registry',
       # version=about["__version__"],
