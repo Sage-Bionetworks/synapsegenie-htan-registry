@@ -18,7 +18,7 @@ class Imaging(FileTypeFormat):
     _process_kwargs = ["databaseSynId"]
 
     def _validate_filetype(self, filePath):
-        bioformats_list = os.path.join(here, '../fileformats')
+        bioformats_list = os.path.join(here, '../fileformats_subset')
         with open(bioformats_list, 'r') as bf:
             bioformats = tuple(bf.readlines()[0].split(", "))
         assert os.path.basename(filePath[0]).endswith(bioformats)
